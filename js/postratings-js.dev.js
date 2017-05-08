@@ -125,3 +125,7 @@ function rate_post() {
 		alert(ratingsL10n.text_wait);
 	}
 }
+
+jQuery(function(){
+    jQuery('input[class^="wp-postrating"]').rating();
+});

@@ -25,6 +25,9 @@ if ( ! current_user_can( 'manage_ratings' ) ) {
 }
 
 
+### Ratings Icons
+wp_enqueue_style( 'wp-postratings-star-rating-icons', plugins_url( 'wp-postratings/css/star-rating-icons.css' ), false, WP_POSTRATINGS_VERSION, 'all' );
+
 $base_name                  = plugin_basename( 'wp-postratings/postratings-manager.php' );
 $base_page                  = admin_url( 'admin.php?page=' . urlencode( $base_name ) );
 $postratings_sort_url       = '';
@@ -316,32 +319,12 @@ $postratings_logs = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->r
 					}
 					echo $postratings_rating;
 				} else {
-					if(is_rtl() && file_exists(WP_PLUGIN_DIR.'/wp-postratings/images/'.$ratings_image.'/rating_start-rtl.'.RATINGS_IMG_EXT)) {
-						echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_start-rtl.'.RATINGS_IMG_EXT).'" alt="" class="post-ratings-image" />';
-					} elseif(file_exists(WP_PLUGIN_DIR.'/wp-postratings/images/'.$ratings_image.'/rating_start.'.RATINGS_IMG_EXT)) {
-						echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_start.'.RATINGS_IMG_EXT).'" alt="" class="post-ratings-image" />';
-					}
-					if($ratings_custom) {
-						for($j=1; $j <= $ratings_max; $j++) {
-							if($j <= $postratings_rating) {
-								echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_'.$j.'_on.'.RATINGS_IMG_EXT).'" alt="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" title="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" class="post-ratings-image" />';
-							} else {
-								echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_'.$j.'_off.'.RATINGS_IMG_EXT).'" alt="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" title="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" class="post-ratings-image" />';
-							}
+					for($j=1; $j <= $ratings_max; $j++) {
+						if($j <= $postratings_rating) {
+							echo '<i class="icon-star-full"></i>';
+						} else {
+							echo '<i class="icon-star-empty"></i>';
 						}
-					} else {
-						for($j=1; $j <= $ratings_max; $j++) {
-							if($j <= $postratings_rating) {
-								echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_on.'.RATINGS_IMG_EXT).'" alt="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" title="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" class="post-ratings-image" />';
-							} else {
-								echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_off.'.RATINGS_IMG_EXT).'" alt="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" title="'.sprintf(_n('User Rate This %s Star', 'User Rate This %s Stars', $postratings_rating, 'wp-postratings'), $postratings_rating).__(' Out Of ', 'wp-postratings').$ratings_max.'" class="post-ratings-image" />';
-							}
-						}
-					}
-					if(is_rtl() && file_exists(WP_PLUGIN_DIR.'/wp-postratings/images/'.$ratings_image.'/rating_end-rtl.'.RATINGS_IMG_EXT)) {
-						echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_end-rtl.'.RATINGS_IMG_EXT).'" alt="" class="post-ratings-image" />';
-					} elseif(file_exists(WP_PLUGIN_DIR.'/wp-postratings/images/'.$ratings_image.'/rating_end.'.RATINGS_IMG_EXT)) {
-						echo '<img src="'.plugins_url('wp-postratings/images/'.$ratings_image.'/rating_end.'.RATINGS_IMG_EXT).'" alt="" class="post-ratings-image" />';
 					}
 				}
 				echo '</td>'."\n";
