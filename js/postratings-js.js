@@ -21,7 +21,7 @@
 	// Variables
 	var post_id = 0;
 	var post_rating = 0;
-	
+
 	// Process Post Ratings
 	function rate_post() {
 		post_ratings_el = $('#post-ratings-' + post_id);
@@ -36,7 +36,7 @@
 			cache: false
 		});
 	}
-	
+
 	$(function(){
 	    $('input[class^="wp-postrating"]').rating({
 	    	emptyStar: '<i class="icon-star-empty"></i>',
@@ -49,7 +49,9 @@
 	    	var $this = $(this);
 	    	post_id = $this.data('post-id');
 	    	post_rating = value;
-	    	rate_post();
+			rate_post();
+			$(this).closest('.rating-container').addClass('rating-disabled');
+			$(this).closest('.rating-container').children().off();
 	    });
 	});
 })(jQuery);
